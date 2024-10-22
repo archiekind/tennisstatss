@@ -1,0 +1,94 @@
+{% extends 'interface/base.html' %}
+
+{% block extra_head %}
+<style>
+    h1 {text-align: center; font-family: 'Courier New', Courier, monospace;}
+    div {
+        font-family: 'Courier New', Courier, monospace;
+    }
+    #full {
+        width: 100%;
+        height: 8vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #bigleft1 {
+        width: 66.66%;
+        float: left;
+        background-color: #AECFC7;
+        height: 8vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #smallright1 {
+        width: 33.33%;
+        float: right;
+        background-color: #AECFC7;
+        height: 8vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #bigleft2 {
+        width: 66.66%;
+        float: left;
+        height: 8vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #smallright2 {
+        width: 33.33%;
+        float: right;
+        height: 8vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #left {
+        width: 50%;
+        float: left;
+        height: 8vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #right {
+        width: 50%;
+        float: right;
+        height: 8vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    h4 {
+        text-align: center;
+        font-size: medium;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<h1>{{ match.player1 }} vs {{ match.player2 }}</h1>
+<div id="full"><div id="bigleft1"><div id="left"><h4>{{ player1_percentpointswon }}</h4></div><div id="right"><h4>points won</h4></div></div><div id="smallright1"><h4>{{ player2_percentpointswon }}</h4></div></div>
+<div id="full"><div id="bigleft2"><div id="left"><h4>{{ player1_percentforced }}</h4></div><div id="right"><h4>forced errors</h4></div></div><div id="smallright2"><h4>{{ player2_percentforced }}</h4></div></div>
+<div id="full"><div id="bigleft1"><div id="left"><h4>{{ player1_percentunforced }}</h4></div><div id="right"><h4>unforced errors</h4></div></div><div id="smallright1"><h4>{{ player2_percentunforced }}</h4></div></div>
+<div id="full"><div id="bigleft2"><div id="left"><h4>{{ player1_percentfirstserves }}</h4></div><div id="right"><h4>first serves</h4></div></div><div id="smallright2"><h4>{{ player2_percentfirstserves }}</h4></div></div>
+<div id="full"><div id="bigleft1"><div id="left"><h4>{{ player1_percentnet }}</h4></div><div id="right"><h4>serve errors in net</h4></div></div><div id="smallright1"><h4>{{ player2_percentnet }}</h4></div></div>
+<div id="full"><div id="bigleft2"><div id="left"><h4>{{ player1_percentout }}</h4></div><div id="right"><h4>serve errors out</h4></div></div><div id="smallright2"><h4>{{ player2_percentout }}</h4></div></div>
+<div id="full"><div id="bigleft1"><div id="left"><h4>{{ player1_percentsecondserves }}</h4></div><div id="right"><h4>second serves</h4></div></div><div id="smallright1"><h4>{{ player2_percentsecondserves }}</h4></div></div>
+<div id="full"><div id="bigleft2"><div id="left"><h4>{{ player1_percentnet2 }}</h4></div><div id="right"><h4>2nd serve errors in net</h4></div></div><div id="smallright2"><h4>{{ player2_percentnet2 }}</h4></div></div>
+<div id="full"><div id="bigleft1"><div id="left"><h4>{{ player1_percentout2 }}</h4></div><div id="right"><h4>2nd serve errors out</h4></div></div><div id="smallright1"><h4>{{ player2_percentout2 }}</h4></div></div>
+<div id="full"><div id="bigleft2"><div id="left"><h4>{{ player1_percentrin }}</h4></div><div id="right"><h4>returns</h4></div></div><div id="smallright2"><h4>{{ player2_percentrin }}</h4></div></div>
+<div id="full"><div id="bigleft1"><div id="left"><h4>{{ player1_percentrnet }}</h4></div><div id="right"><h4>return errors in net</h4></div></div><div id="smallright1"><h4>{{ player2_percentrnet }}</h4></div></div>
+<div id="full"><div id="bigleft2"><div id="left"><h4>{{ player1_percentrout }}</h4></div><div id="right"><h4>return errors out</h4></div></div><div id="smallright2"><h4>{{ player2_percentrout }}</h4></div></div>
+<div id="full"><div id="bigleft1"><div id="left"><h4>{{ player1_percentfue }}</h4></div><div id="right"><h4>forehand unforced errors</h4></div></div><div id="smallright1"><h4>{{ player2_percentfue }}</h4></div></div>
+<div id="full"><div id="bigleft2"><div id="left"><h4>{{ player1_percentbue }}</h4></div><div id="right"><h4>backhand unforced errors</h4></div></div><div id="smallright2"><h4>{{ player2_percentbue }}</h4></div></div>
+<div id="full"><div id="bigleft1"><div id="left"><h4>{{ player1_percentffe }}</h4></div><div id="right"><h4>forehand errors forced</h4></div></div><div id="smallright1"><h4>{{ player2_percentffe }}</h4></div></div>
+<div id="full"><div id="bigleft2"><div id="left"><h4>{{ player1_percentbfe }}</h4></div><div id="right"><h4>backhand errors forced</h4></div></div><div id="smallright2"><h4>{{ player2_percentbfe }}</h4></div></div>
+<div id="full"><div id="bigleft1"><div id="left"><h4>{{ player1_percentlfe }}</h4></div><div id="right"><h4>errors forced line</h4></div></div><div id="smallright1"><h4>{{ player2_percentlfe }}</h4></div></div>
+<div id="full"><div id="bigleft2"><div id="left"><h4>{{ player1_percentcfe }}</h4></div><div id="right"><h4>errors forced cross</h4></div></div><div id="smallright2"><h4>{{ player2_percentcfe}}</h4></div></div>
+<center><a href="{% url 'thismatch' match.pk %}" class="btn btn-dark" style="margin: 1%; margin-bottom: 9%;">back</a></center>
+{% endblock %}

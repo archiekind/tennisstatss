@@ -1,0 +1,47 @@
+{% extends 'interface/base.html' %}
+{% load static %}
+{% block head_title %}Matches{% endblock %}
+    {% block extra_head %}
+        <style>
+            .flex-cont {
+                display: flex;
+                width: 95vw;
+                margin: 0 auto;
+                flex-wrap: wrap;
+            }
+            .back {
+                background-image: url('{% static 'img/tennisball.png' %}');
+                background-size: cover;
+                background-repeat: no-repeat;
+                width: 30vw;
+                height: 30vw;
+                border-radius: 2%;
+                margin-right: 1vw;
+                margin-bottom: 1vw;
+                margin-top: 1vw;
+            }
+            @media (max-width: 800px){
+                .flex-cont {
+                    flex-direction: column;
+                }
+                .back {
+                    width: 95vw;
+                    border-radius: none;
+                    padding: 10%;
+                }
+            }
+            .cent {
+                position: relative;
+                top: 45%;
+                text-align: center;
+                font-family: 'Courier New', Courier, monospace;
+            }
+        </style>
+    {% endblock %}
+{% block body %}
+    <div class="flex-cont">
+        {% for match in object_list %}
+            <a href="{% url 'thismatch' match.pk %}" class="back" style="text-decoration: none;"><div class="cent"><h3 style="color: black;">{{ match.player1 }} vs {{ match.player2 }}</h3></div></a>
+        {% endfor %}
+    </div>
+{% endblock %}

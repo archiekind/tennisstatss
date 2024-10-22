@@ -1,0 +1,65 @@
+
+{% extends "registration/base.html" %}
+
+{% block head_title %}Sign In{% endblock %}
+
+{% block extra_head %}
+<style>
+body {
+    background-color: #f2f2f2;
+    font-family: Cascadia Code;
+}
+#box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 86vh;
+    background-color: white;
+}
+form {
+    background-color: #ffffff;
+    padding: 5%;
+    background-color: #dcdcdc;
+}
+input[type="text"] {
+    padding: 5px;
+    border: 1px solid #cccccc;
+    border-radius: 1px;
+    font-size: 24px;
+}
+input[type="password"] {
+    padding: 5px;
+    border: 1px solid #cccccc;
+    border-radius: 1px;
+    font-size: 24px;
+}
+#subby {
+    background-color: #23cba3;
+    color: #ffffff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    font-size: 24px;
+    cursor: pointer;
+}
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+</style>
+{% endblock %}
+{% block content %}
+<div style="display: flex; justify-content: space-between;"><h1>Sign In</h1><a href="{% url 'signup' %}" class="btn btn-info" id="subby" style="float: right;">Sign Up</a></div>
+<div id="box">
+    <form class="login" method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <input class="btn btn-info" id="subby" type="submit" value="Sign In">
+    </form>
+</div>
+
+{% endblock %}

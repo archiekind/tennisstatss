@@ -1,0 +1,238 @@
+{% extends 'interface/base.html' %}
+{% block head_title %}thisgame{% endblock %}
+{% block extra_head %}
+<style>
+    h1 {text-align: center; font-family: 'Courier New', Courier, monospace;}
+    h4 {font-family: 'Courier New', Courier, monospace; padding: 1%; text-align: center;}
+    input[type="radio"]{
+        visibility: hidden;
+        height: 0;
+        width: 0;
+    }
+    input[type="radio"] + label{
+        border: none;
+        border-radius: none;
+    }
+    input[type="radio"] + label{
+        padding: 20px;
+        background-color: #0b5c48;
+    }
+    input[type="radio"]:checked + label{
+        background-color: #88DFCA;
+        color: white;
+    }
+    input[type="radio"]:hover + label{
+        background-color: #88DFCA;
+    }
+    #pointlist {
+        padding: 1%; 
+        margin: 0.4%;
+        width: auto;
+        font-size: large;
+        font-family: 'Courier New', Courier, monospace;}
+    #info {
+        width:22%;
+        margin: 0.4%;
+        padding: 1%;
+        font-size: large;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    #subby {
+        padding: 1%;
+        width: 20%;
+        margin-top: 1%;
+    }
+    #bigright {
+        width: 50%;
+        float: right;
+    }
+    #bigleft {
+        width: 50%;
+        float: left;
+    }
+    #full {
+        width: 100%;
+        float: left;
+    }
+    #mediumleft {
+        width: 66.6%;
+        float: left;
+    }
+    #mediumright {
+        width: 66.6%;
+        float: right;
+    }
+    #minileft {
+        width: 33.3%;
+        float: left;
+    }
+    #miniright {
+        width: 33.3%;
+        float: right;
+    }
+    #superminileft {
+        width: 50%;
+        float: left;
+        border-right: 1px solid black;
+    }
+    #superminiright {
+        width: 50%;
+        float: right;
+        border-right: 1px solid black;
+    }
+    .grey{
+        background-color: #dcdcdc;
+    }
+    #wrapper {
+        border: none;
+    }
+    body {
+        overflow-x: hidden;
+    }
+    #sbigleft {
+        width: 50%;
+        float: left;
+    }
+    #sbigright {
+        width: 50%;
+        float: right;
+    }
+    #sminiright {
+        width: 33.3%;
+        float: right;
+    }
+    #sbigleft {
+        width: fit-content;
+        float: right;
+    }
+    #sbigright {
+        width: fit-content;
+        float: right;
+    }
+    #sminiright {
+        width: fit-content;
+        float: right;
+    }
+    .off {
+        display: hidden;
+    }
+    @media (max-width: 800) {
+        section.desk {
+            display: none;
+        }
+    }
+    @media (min-width: 800) {
+        section.mobi {
+            display: none;
+        }
+    }
+</style>
+
+{% endblock %}
+{% block body %}
+<div id="wrapper">
+    <div id="full" style="background-color: #dcdcdc;">
+    <div id="mediumright" style="background-color: #dcdcdc;">
+        <div id="bigleft"><h1 style="margin: 0.5%; font-size: xx-large;">{{ type }} {{ game.game_number }}</h1></div>
+        <div id="bigright" style="text-align: right;"><a class="btn btn-dark" style="margin: 1.5%;" href="{% url 'thismatch' match.pk %}">back</a></div>
+    </div>
+    </div>
+    <div id="bigleft">
+        <h1 style="border-bottom: 1px solid black">{{ match.player1 }} vs {{ match.player2 }}</h1>
+        <h1>{{ game.player1_score }} : {{ game.player2_score }}</h1>
+    </div>
+    <div class="desk">
+        <div id="bigright">
+            <h4 align="right" style="padding: 1%;">{{ server }} is serving</h4>
+            <div id="mediumleft">
+                <div id="bigleft" align="center"><a class="btn btn-outline-dark" href="{% url 'changeserver' game.pk %}">change server</a></div>
+                <div id="bigright" align="center"><a class="btn btn-outline-dark" href="{% url 'changeallservers' game.pk %}">change all servers</a></div>
+            </div>
+            <div id="miniright" align="center"><a class="btn btn-outline-dark" href="{% url 'swappoints' game.pk %}">swap points</a></div>
+        </div>
+    </div>
+    <div class="mobi">
+        <div id="bigright">
+            <h4 align="right" style="padding: 1%;">{{ game.server }} is serving</h4>
+            <div style="width: 100%; float: right;"><a class="btn btn-outline-dark" href="{% url 'changeserver' game.pk %}" style="float: right; margin: 1%;">change server</a></div>
+            <div style="width: 100%; float: right;"><a class="btn btn-outline-dark" href="{% url 'changeallservers' game.pk %}" style="float: right; margin: 1%;">change all servers</a></div>
+            <div style="width: 100%; float: right;"><a class="btn btn-outline-dark" href="{% url 'swappoints' game.pk %}" style="float: right; margin: 1%">swap points</a></div>
+        </div>
+    </div>
+</div id="wrapper">
+
+<div id="full" style="background-color: white;" class="desk">
+    <div>
+    <div id="bigleft" style="background-color: white;"><h4 style="color: #23CBA3;">score recap</h3></div>
+    <div id="bigright"><div id="mediumleft"><div id="bigleft"><div id="superminileft"><h4 style="color: #23CBA3; font-size: medium;">1st</h4></div><div id="superminiright"><h4 style="color: #23CBA3; font-size: medium;">2nd</h4></div></div><div id="bigright"><h4 style="color: #23CBA3; font-size: medium;">return</h4></div></div><div id="miniright" style="border-left: 1px solid black"><h4 style="color: #23CBA3; font-size: medium;">error</h4></div></div>
+    </div>
+    {% for point in points %}
+    <div id="full">
+    <div id="bigleft" style="background-color: white;"><h4 align="center">{{ point.player1_score }} : {{ point.player2_score }}</h4></div>
+    <div id="bigright"><div id="mediumleft"><div id="bigleft"><div id="superminileft"><h4>{{ point.serve1 }}</h4></div><div id="superminiright"><h4>{{ point.serve2 }}</h4></div></div><div id="minicenter"><h4>{{ point.retrn }}</h4></div></div><div id="miniright" style="border-left: 1px solid black;"><h4>{{ point.winmethod }}</h4></div></div>
+    </div>
+    {% endfor %}
+</div>
+
+<div id="full" style="background-color: #ebebeb;">
+    <form action="{% url 'createpoint' game.pk %}" method="POST" align="center">
+        {% csrf_token %}
+
+        <div style="width: 100%; float: left; margin: 0.4%;">
+        <div style="width:20%; float: left;"><h4>first serve</h4></div><div style="width: 80%; float: right;"><input type="radio" class="btn-check" id="net" name="serve1" value="net" autocomplete="off" required>
+        <label for="net" class="btn btn-primary" id="info">net</label>
+        <input type="radio" class="btn-check" id="out" name="serve1" value="out" autocomplete="off">
+        <label for="out" class="btn btn-primary" id="info">out</label>
+        <input type="radio" class="btn-check" id="in" name="serve1" value="in" autocomplete="off">
+        <label for="in" class="btn btn-primary" id="info">in</label></div>
+        </div>
+
+        <div style="width: 100%; float: left; margin: 0.4%;">
+        <div style="width:20%; float: left;"><h4>second serve</h4></div><div style="width: 80%; float: right;"><input type="radio" class="btn-check" id="net2" name="serve2" value="net" autocomplete="off">
+        <label for="net2" class="btn btn-primary" id="info">net</label>
+        <input type="radio" class="btn-check" id="out2" name="serve2" value="out" autocomplete="off">
+        <label for="out2" class="btn btn-primary" id="info">out</label>
+        <input type="radio" class="btn-check" id="in2" name="serve2" value="in" autocomplete="off">
+        <label for="in2" class="btn btn-primary" id="info">in</label></div>
+        </div>
+
+        <div style="width: 100%; float: left; margin: 0.4%;">
+        <div style="width:20%; float: left;"><h4>return</h4></div><div style="width: 80%; float: right;"><input type="radio" class="btn-check" id="net3" name="retrn" value="net" autocomplete="off">
+        <label for="net3" class="btn btn-primary" id="info">net</label>
+        <input type="radio" class="btn-check" id="out3" name="retrn" value="out" autocomplete="off">
+        <label for="out3" class="btn btn-primary" id="info">out</label>
+        <input type="radio" class="btn-check" id="in3" name="retrn" value="in" autocomplete="off">
+        <label for="in3" class="btn btn-primary" id="info">in</label></div>
+        </div>
+
+        <div>
+        <div style="width: 100%; float: left; margin: 0.4%; padding-top: 3%; background-color: #dcdcdc;">
+        <input type="radio" class="btn-check" id="player1" name="winner" value="player1" autocomplete="off">
+        <label for="player1" class="btn btn-secondary" id="pointlist">{{ match.player1 }}</label>
+        <input type="radio" class="btn-check" id="player2" name="winner" value="player2" autocomplete="off">
+        <label for="player2" class="btn btn-secondary" id="pointlist">{{ match.player2 }}</label>
+        <h4> won by </h4>
+        <input type="radio" class="btn-check" id="for" name="winmethod" value="for" autocomplete="off">
+        <label for="for" class="btn btn-secondary" id="pointlist">forcing an error</label>
+        <input type="radio" class="btn-check" id="unf" name="winmethod" value="unf" autocomplete="off">
+        <label for="unf" class="btn btn-secondary" id="pointlist">their opponents unforced error</label>
+        <h4> on the </h4>
+        <input type="radio" class="btn-check" id="forehand" name="side" value="forehand" autocomplete="off">
+        <label for="forehand" class="btn btn-secondary" id="pointlist">forehand side</label>
+        <input type="radio" class="btn-check" id="backhand" name="side" value="backhand" autocomplete="off">
+        <label for="backhand" class="btn btn-secondary" id="pointlist">backhand side</label>
+        <h4> the ball went </h4>
+        <input type="radio" class="btn-check" id="cross" name="ballwent" value="cross" autocomplete="off">
+        <label for="cross" class="btn btn-secondary" id="pointlist">cross court</label>
+        <input type="radio" class="btn-check" id="line" name="ballwent" value="line" autocomplete="off">
+        <label for="line" class="btn btn-secondary" id="pointlist">line</label>
+        <input type="radio" class="btn-check" id="net4" name="ballwent" value="net" autocomplete="off">
+        <label for="net4" class="btn btn-secondary" id="pointlist">in the net</label>
+        <input type="radio" class="btn-check" id="out4" name="ballwent" value="out" autocomplete="off">
+        <label for="out4" class="btn btn-secondary" id="pointlist">out</label><br>
+
+        <input type="submit" name="submit" class="btn btn-outline-dark" id="subby" style="margin-bottom: 9%;">
+        </div>
+    </form>
+</div>
+{% endblock %}

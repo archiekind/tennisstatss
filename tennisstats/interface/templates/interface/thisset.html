@@ -1,0 +1,78 @@
+{% extends 'interface/base.html' %}
+{% block head_title %}ThisSet{% endblock %}
+{% block body %}
+{% block extra_head %}
+<style>
+    h1 {text-align: center; font-family: 'Courier New', Courier, monospace;}
+    #gamelist {background-color: #D1A777; 
+        color: black; 
+        padding: 1%; 
+        margin: 0.4%;
+        width: 40%;
+        font-size: xx-large;
+        font-family: 'Courier New', Courier, monospace;}
+    #delete {
+        background-color: #D1A777; 
+        color: black; 
+        padding: 1%; 
+        margin: 0.4%;
+        width: 20%;
+        font-size: xx-large;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    #dv {text-align: center;}
+    #newgame {
+        padding: 1%;
+        width: 30%;
+    }
+    #newtiebreak {
+        padding: 1%;
+        width: 20%;
+    }
+    @media (min-width: 800px){
+        .mob{
+            display: none;
+        }
+    }
+    @media (max-width: 800px){
+        #gamelist {
+            width: 55%;
+            margin: 1%;
+        }
+        #newgame {
+            width: 36.5%;
+            margin: 1%;
+        }
+        #newtiebreak {
+            width: 36.5%;
+        }
+        #delete {
+            width: 35%;
+        }
+        .desk {
+            display: none;
+        }
+    }
+</style>
+{% endblock %}
+<h1>{{ set.match.player1 }} vs {{ set.match.player2 }}</h1>
+<h1>{{ set.player1_score }} : {{ set.player2_score }}</h1>
+
+{% for game in games %}
+    <div id="dv" class="desk">
+        <a href="{% url 'thisgame' game.pk %}" class="btn btn-secondary" id="gamelist">{{ game.type }} {{ game.game_number }} {{ game.player1_score }}:{{ game.player2_score }}</a>
+        <a href="{% url 'deletegame' game.pk %}" class="btn btn-secondary" id="delete">delete</a>
+    </div>
+    <div id="dv" class="mob">
+        <a href="{% url 'thisgame' game.pk %}" class="btn btn-secondary" id="gamelist">No.{{ game.game_number }} {{ game.player1_score }}:{{ game.player2_score }}</a>
+        <a href="{% url 'deletegame' game.pk %}" class="btn btn-secondary" id="delete">delete</a>
+    </div>
+{% endfor %}
+
+<div id="dv" style="font-family: 'Courier New', Courier, monospace;">
+    <a href="{% url 'creategame' set.pk 'game' %}" class="btn btn-outline-dark" id="newgame">New Game</a>
+    <a href="{% url 'creategame' set.pk 'tiebreak' %}" class="btn btn-outline-dark" id="newtiebreak">New Tiebreak</a><br>
+</div>
+
+<div id="dv" style="margin: 0.4%; font-family: 'Courier New', Courier, monospace;"><a class="btn btn-dark" href="{% url 'thismatch' set.match.pk %}" style="margin-bottom: 9%;">back</a></div>
+{% endblock %}

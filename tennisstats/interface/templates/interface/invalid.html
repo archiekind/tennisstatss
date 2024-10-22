@@ -1,0 +1,15 @@
+{% extends 'interface/base.html' %}
+{% block head_title %}invalid{% endblock %}
+{% block extra_head %}
+<style>
+    h1 {text-align: center; font-family: 'Courier New', Courier, monospace;}
+    h4 {text-align: center; font-family: 'Courier New', Courier, monospace;}
+    form {text-align: center;}
+</style>
+
+{% endblock %}
+{% block body %}
+<h1>Invalid</h1>
+<h4>oops... looks like the point you just entered isn't valid</h4><br>
+<h4>click to enter the information again </h4><div style="text-align: center;"><a href="{% url 'thisgame' game.pk %}" class="btn btn-secondary">return</a></div>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'interface/base.html' %}
+{% block head_title %}ThisMatch{% endblock %}
+{% block extra_head %}
+<style>
+    h1 {text-align: center; font-family: 'Courier New', Courier, monospace;}
+    h4 {text-align: center; font-family: 'Courier New', Courier, monospace;}
+    form {text-align: center;}
+    #setlist {background-color: #8DAFC8; 
+        color: black;
+        padding: 1%;
+        margin: 0.4%;
+        width: 40%;
+        font-size: xx-large;
+        font-family: 'Courier New', Courier, monospace;}
+    #newset {
+        padding: 1%;
+        width: 20%;
+    }
+    #newmt {
+        padding: 1%;
+        width: 30%;
+    }
+    #delete {
+        background-color: #8DAFC8; 
+        color: black; 
+        padding: 1%;
+        margin: 0.4%;
+        width: 20%;
+        font-size: xx-large;
+        font-family: 'Courier New', Courier, monospace;;
+    }
+    @media (max-width: 800px) {
+        #setlist {
+            width: 55%;
+        }
+        #newset {
+            width: 35%;
+        }
+        #newmt {
+            width: 50%;
+            margin: 1%;
+        }
+        #delete {
+            width: 35%;
+            margin: 1%;
+        }
+    }
+</style>
+
+{% endblock %}
+{% block body %}
+    <h1>{{ match.player1 }} : {{ match.player2 }}</h1>
+    <h4>{{ match.date }}</h4>
+    {% for set in sets %}
+        <div align="center">
+            <a href="{% url 'thisset' set.pk %}" class="btn btn-secondary" id="setlist">Set{{ set.set_number }} {{ set.player1_score }} : {{ set.player2_score }}</a>
+            <a href="{% url 'deleteset' set.pk %}" class="btn btn-secondary" id="delete">delete</a>
+        </div>
+    {% endfor %}
+    {% for matchtiebreak in matchtiebreaks %}
+        <div align="center">
+            <a href="{% url 'thisgame' matchtiebreak.pk %}" class="btn btn-secondary" id="setlist">MT {{ matchtiebreak.player1_score }} : {{ matchtiebreak.player2_score }}</a>
+            <a href="{% url 'deletematchtiebreak' matchtiebreak.pk %}" class="btn btn-secondary" id="delete">delete</a>
+        </div>
+    {% endfor %}
+
+    <div align="center">
+        <a href="{% url 'createsets' match.pk %}" class="btn btn-outline-dark" id="newset">New Set</a>
+        <a href="{% url 'creategame' match.pk 'mtiebreak' %}" class="btn btn-outline-dark" id="newmt">New Match Tiebreak</a>
+    </div>
+
+    <div align="center" style="margin: 0.4%; font-family: 'Courier New', Courier, monospace;">
+        <a class="btn btn-dark" href="{% url 'matches'%}">back</a>
+        <a class="btn btn-danger" href="{% url 'deletematch' match.pk %}">delete match</a>
+        <a class="btn btn-info" href="{% url 'viewstats' match.pk %}">view stats</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'interface/base.html' %}
+{% block head_title %}MakeMatch{% endblock %}
+{% block extra_head %}
+<style>
+body {
+    background-color: #f2f2f2;
+    font-family: 'Courier New', Courier, monospace;
+}
+#box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    background-color: white;
+}
+#form {
+    background-color: #ffffff;
+    padding: 5%;
+    background-color: #dcdcdc;
+}
+#form label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+#form input[type="text"] {
+    padding: 5px;
+    border: 1px solid #cccccc;
+    border-radius: 1px;
+    font-size: 24px;
+}
+#form input[type="submit"] {
+    background-color: #23cba3;
+    color: #ffffff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    font-size: 24px;
+    cursor: pointer;
+}
+</style>
+{% endblock %}
+{% block body %}
+<div id="box">
+    <div id="form">
+        <form action="{% url 'creatematch' %}" method="POST">
+            {% csrf_token %}
+            <label>Player 1:
+            <input type="text" name="player1">
+            </label>
+            <label>Player 2:
+            <input type="text" name="player2">
+            </label>
+            <input type="submit" name="submit">
+        </form>
+    </div>
+</div>
+{% endblock %}
